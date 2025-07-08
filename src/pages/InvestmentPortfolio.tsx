@@ -1,5 +1,6 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Navigation from "@/components/Navigation";
+import Curtain from "@/components/Curtain";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from "./InvestmentPortfolio.module.css";
@@ -156,95 +157,26 @@ const InvestmentCard = ({ investment, index }: { investment: InvestmentCard; ind
   const cardRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
-  const imageContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!cardRef.current || !innerRef.current || !imageRef.current || !imageContainerRef.current) return;
+    if (!cardRef.current || !innerRef.current || !imageRef.current) return;
 
     const card = cardRef.current;
     const inner = innerRef.current;
     const image = imageRef.current;
-    const imageContainer = imageContainerRef.current;
 
-    // Magnetic effect variables
-    let mouseX = 0;
-    let mouseY = 0;
-    let cardX = 0;
-    let cardY = 0;
-
-    // Entrance animation with alternating rotation
-    gsap.set(card, {
-      opacity: 0,
-      scale: 0.8,
-      rotationY: index % 2 === 0 ? 90 : -90,
-      transformOrigin: "center center"
-    });
-
-    // Staggered entrance animation
-    gsap.to(card, {
-      opacity: 1,
-      scale: 1,
-      rotationY: 0,
-      duration: 0.8,
-      delay: index * 0.1,
-      ease: "power2.out"
-    });
-
-    // Parallax effect on scroll
-    ScrollTrigger.create({
-      trigger: card,
-      start: "top bottom",
-      end: "bottom top",
-      onUpdate: (self) => {
-        const progress = self.progress;
-        gsap.to(card, {
-          y: -100 * progress,
-          rotationX: 5 * progress,
-          duration: 0.1,
-          ease: "none"
-        });
-      }
-    });
-
-    // Magnetic effect
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = card.getBoundingClientRect();
-      mouseX = e.clientX - rect.left - rect.width / 2;
-      mouseY = e.clientY - rect.top - rect.height / 2;
-      
-      // Calculate magnetic effect
-      cardX += (mouseX * 0.1 - cardX) * 0.1;
-      cardY += (mouseY * 0.1 - cardY) * 0.1;
-      
-      gsap.to(card, {
-        x: cardX,
-        y: cardY,
-        rotationY: cardX * 0.02,
-        rotationX: -cardY * 0.02,
-        duration: 0.1,
-        ease: "power2.out"
-      });
-    };
-
-    // Enhanced hover animations
+    // Hover animations
     const handleMouseEnter = () => {
       gsap.to(card, {
-        scale: 1.05,
-        boxShadow: "0 30px 80px rgba(59, 130, 246, 0.3), 0 20px 40px rgba(147, 51, 234, 0.2)",
+        y: -5,
+        boxShadow: "0 30px 60px rgba(0, 0, 0, 0.12)",
         duration: 0.3,
         ease: "power2.out"
       });
 
-      // Image zoom effect
-      gsap.to(imageContainer, {
-        scale: 1.1,
-        duration: 0.3,
-        ease: "power2.out"
-      });
-
-      // Enhanced image animation
+      // Subtle image animation on hover
       gsap.to(image, {
-        scale: 1.1,
+        scale: 1.05,
         duration: 0.3,
         ease: "power2.out"
       });
@@ -252,23 +184,13 @@ const InvestmentCard = ({ investment, index }: { investment: InvestmentCard; ind
 
     const handleMouseLeave = () => {
       gsap.to(card, {
-        scale: 1,
-        x: 0,
         y: 0,
-        rotationY: 0,
-        rotationX: 0,
         boxShadow: "0 20px 40px rgba(0, 0, 0, 0.08)",
         duration: 0.3,
         ease: "power2.out"
       });
 
-      // Reset image animations
-      gsap.to(imageContainer, {
-        scale: 1,
-        duration: 0.3,
-        ease: "power2.out"
-      });
-
+      // Reset image animation
       gsap.to(image, {
         scale: 1,
         duration: 0.3,
@@ -280,45 +202,31 @@ const InvestmentCard = ({ investment, index }: { investment: InvestmentCard; ind
       window.open(investment.caseStudyUrl, '_blank');
     };
 
-    card.addEventListener("mousemove", handleMouseMove);
     card.addEventListener("mouseenter", handleMouseEnter);
     card.addEventListener("mouseleave", handleMouseLeave);
     card.addEventListener("click", handleClick);
 
     return () => {
-      card.removeEventListener("mousemove", handleMouseMove);
       card.removeEventListener("mouseenter", handleMouseEnter);
       card.removeEventListener("mouseleave", handleMouseLeave);
       card.removeEventListener("click", handleClick);
     };
-  }, [investment.caseStudyUrl, index]);
+  }, [investment.caseStudyUrl]);
 
   return (
     <div ref={cardRef} className={`${styles["flip-card"]} cursor-pointer`}>
       <div ref={innerRef} className={styles["flip-card-inner"]}>
         <div className={styles["flip-card-front"]}>
-          <div ref={imageContainerRef} className={styles["image-container"]}>
-            <img 
-              ref={imageRef}
-              src={investment.image} 
-              alt={investment.name}
-              className={styles["company-image"]}
-            />
-          </div>
-          <div className={styles["company-info"]}>
-            <h3 className={`${styles["gradient-title"]} text-2xl font-bold mb-2`}>{investment.name}</h3>
-            <p className="text-gray-600 mb-2">{investment.description}</p>
-            <div className="flex items-center justify-between mt-4">
-              <span className="text-sm text-gray-500">{investment.industry}</span>
-              <span className="text-sm text-gray-500">{investment.year}</span>
-            </div>
-          </div>
+          <img 
+            ref={imageRef}
+            src={investment.image} 
+            alt={investment.name}
+            className={styles["company-image"]}
+          />
         </div>
         <div className={styles["flip-card-back"]}>
           <div className={styles["back-content"]}>
-            <h3 className={`${styles["gradient-title"]} text-2xl font-bold mb-4`}>
-              {investment.name}
-            </h3>
+            <h3 className="text-2xl font-bold mb-4">{investment.name}</h3>
             <p className="text-gray-600 mb-4">{investment.description}</p>
             <div className="flex items-center justify-between">
               <span className="text-sm text-gray-500">{investment.industry}</span>
@@ -332,10 +240,19 @@ const InvestmentCard = ({ investment, index }: { investment: InvestmentCard; ind
 };
 
 const InvestmentPortfolio = () => {
+  const [showCurtain, setShowCurtain] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const backgroundRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setShowCurtain(true);
+  }, []);
+
+  const handleCurtainComplete = () => {
+    setShowCurtain(false);
+  };
 
   useEffect(() => {
     if (!containerRef.current || !titleRef.current || !subtitleRef.current || !backgroundRef.current) return;
@@ -343,12 +260,12 @@ const InvestmentPortfolio = () => {
     const tl = gsap.timeline();
 
     // Initial state: hide elements before animation
-    gsap.set([titleRef.current, subtitleRef.current], {
+    gsap.set([titleRef.current, subtitleRef.current, ".flip-card"], {
       opacity: 0,
       y: 30
     });
 
-    // Timeline for entry animation (cards have their own entrance animations)
+    // Timeline for entry animation
     tl.to(titleRef.current, {
       opacity: 1,
       y: 0,
@@ -360,7 +277,17 @@ const InvestmentPortfolio = () => {
       y: 0,
       duration: 1,
       ease: "power3.out"
-    }, "-=0.8"); // Start subtitle animation slightly before title finishes
+    }, "-=0.8") // Start subtitle animation slightly before title finishes
+    .from(".flip-card", {
+      opacity: 0,
+      y: 60,
+      scale: 0.9,
+      rotationX: 15,
+      transformOrigin: "center bottom",
+      duration: 0.8,
+      ease: "power3.out",
+      stagger: 0.1 // Stagger the animation for each card
+    }, "-=0.6"); // Start card animation before subtitle finishes
 
     // Animated background gradient
     gsap.to(backgroundRef.current, {
@@ -372,33 +299,37 @@ const InvestmentPortfolio = () => {
   }, []);
 
   return (
-    <div ref={backgroundRef} className={`${styles["glass-morphism-bg"]} min-h-screen relative overflow-hidden`}>
-      <Navigation />
-      
-      <main className="pt-32 relative z-10">
-        <div ref={containerRef} className="max-w-7xl mx-auto px-6 py-20">
-          <div className="text-center mb-16">
-            <h1 ref={titleRef} className={`${styles["gradient-title"]} text-5xl md:text-6xl font-bold mb-6`}>
-              Investment Portfolio
-            </h1>
-            <p ref={subtitleRef} className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Strategic investments in emerging technologies and high-growth ventures
-            </p>
+    <>
+      <Curtain 
+        isVisible={showCurtain} 
+        sectionName="Investment Portfolio" 
+        onComplete={handleCurtainComplete} 
+      />
+      <div ref={backgroundRef} className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+        <Navigation />
+        <main className="pt-32">
+          <div ref={containerRef} className="max-w-7xl mx-auto px-6 py-20">
+            <div className="text-center mb-16">
+              <h1 ref={titleRef} className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+                Investment Portfolio
+              </h1>
+              <p ref={subtitleRef} className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                Strategic investments in emerging technologies and high-growth ventures
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+              {investments.map((investment, index) => (
+                <div key={index} className="flex flex-col items-center">
+                  <InvestmentCard investment={investment} index={index} />
+                  <h2 className="mt-4 text-xl font-semibold text-gray-900">{investment.name}</h2>
+                  <p className="mt-2 text-gray-600 text-center max-w-md">{investment.description}</p>
+                </div>
+              ))}
+            </div>
           </div>
-
-          <div className={`${styles["cards-container"]} grid grid-cols-1 md:grid-cols-2 gap-8 mb-16`}>
-            {investments.map((investment, index) => (
-              <div key={index} className={`${styles["card-wrapper"]} flex flex-col items-center`}>
-                <InvestmentCard investment={investment} index={index} />
-              </div>
-            ))}
-          </div>
-
-          {/* Removed Investment Focus Areas and Portfolio Highlights section */}
-
-        </div>
-      </main>
-    </div>
+        </main>
+      </div>
+    </>
   );
 };
 
