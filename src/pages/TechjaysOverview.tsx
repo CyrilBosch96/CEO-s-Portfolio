@@ -12,6 +12,11 @@ gsap.registerPlugin(ScrollTrigger);
 const TechjaysOverview = () => {
   const cardsRef = useRef<HTMLDivElement>(null);
 
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const companyDetails = [
     {
       title: "Founded",
@@ -57,20 +62,17 @@ const TechjaysOverview = () => {
     }
   ];
 
-  // Duplicate cards for seamless marquee effect
-  const duplicatedCards = [...companyDetails, ...companyDetails];
-
   useEffect(() => {
     if (!cardsRef.current) return;
     const cards = cardsRef.current.querySelectorAll('.company-card');
     gsap.fromTo(cards, {
-      x: 100,
+      y: 50,
       opacity: 0
     }, {
-      x: 0,
+      y: 0,
       opacity: 1,
       duration: 0.8,
-      stagger: 0.15,
+      stagger: 0.1,
       ease: "power2.out",
       scrollTrigger: {
         trigger: cardsRef.current,
@@ -120,25 +122,6 @@ const TechjaysOverview = () => {
         radial-gradient(ellipse at 50% 50%, rgba(236, 72, 153, 0.04) 0%, transparent 60%)
       `
     }}>
-      <style>{`
-        @keyframes marquee {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
-        
-        .animate-marquee {
-          animation: marquee 20s linear infinite;
-        }
-        
-        .marquee-container:hover .animate-marquee {
-          animation-play-state: paused;
-        }
-      `}</style>
-      
       <Navigation />
       
       <main className="pt-16">
@@ -153,38 +136,36 @@ const TechjaysOverview = () => {
         </div>
 
         <div className="w-full py-8 px-6">
-          <div className="marquee-container overflow-hidden relative">
-            <div 
-              ref={cardsRef} 
-              className="marquee-content flex gap-6 animate-marquee"
-            >
-              {duplicatedCards.map((detail, index) => {
-                const IconComponent = detail.icon;
-                return (
-                  <Card 
-                    key={`${detail.title}-${index}`} 
-                    className="company-card flex-shrink-0 w-80 h-64 bg-white/90 backdrop-blur-sm hover:shadow-lg transition-shadow border-0" 
-                  >
-                    <CardHeader className="pb-4">
-                      <div className="flex items-center gap-3 mb-2">
-                        <div className="p-2 rounded-lg bg-gradient-to-br from-purple-500 to-blue-500 text-white">
-                          <IconComponent size={18} />
-                        </div>
-                        <CardTitle className="text-lg font-semibold text-gray-900">
-                          {detail.title}
-                        </CardTitle>
+          <div 
+            ref={cardsRef} 
+            className="grid grid-cols-1 md:grid-cols-2 gap-3"
+          >
+            {companyDetails.map((detail, index) => {
+              const IconComponent = detail.icon;
+              return (
+                <Card 
+                  key={`${detail.title}-${index}`} 
+                  className="company-card w-full h-32 bg-white/90 backdrop-blur-sm hover:shadow-lg transition-shadow border-0" 
+                >
+                  <CardHeader className="pb-2">
+                    <div className="flex items-center gap-2 mb-1">
+                      <div className="p-1.5 rounded-lg bg-gradient-to-br from-purple-500 to-blue-500 text-white">
+                        <IconComponent size={14} />
                       </div>
-                    </CardHeader>
-                    <CardContent className="pt-0 flex-1 flex flex-col">
-                      <p className="text-gray-600 leading-relaxed mb-3 text-sm flex-1">
-                        {detail.content}
-                      </p>
-                      {detail.isPartnership && <PartnershipIcons />}
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
+                      <CardTitle className="text-sm font-semibold text-gray-900">
+                        {detail.title}
+                      </CardTitle>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="pt-0 flex-1 flex flex-col">
+                    <p className="text-gray-600 leading-relaxed mb-1 text-xs flex-1">
+                      {detail.content}
+                    </p>
+                    {detail.isPartnership && <PartnershipIcons />}
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </div>
 

@@ -9,6 +9,7 @@
   border-radius: 20px;
   overflow: hidden;
   transition: transform 0.3s ease;
+
 }
 
 .flip-card-inner {
@@ -42,6 +43,7 @@
   flex-direction: row;
   align-items: center;
   gap: 0;
+  transform: rotateY(0deg); /* Ensure front is visible by default */
 }
 
 .company-logo {
@@ -58,6 +60,9 @@
   object-fit: cover;
   border-radius: 10px;
   transition: all 0.3s ease;
+  display: block; /* Ensure image is displayed */
+  max-width: 100%; /* Ensure image doesn't overflow */
+  max-height: 100%; /* Ensure image doesn't overflow */
 }
 
 .company-info {

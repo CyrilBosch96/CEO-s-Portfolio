@@ -1,24 +1,23 @@
 import { useEffect, useRef, useState } from "react";
 import Navigation from "@/components/Navigation";
-import Curtain from "@/components/Curtain";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from "./InvestmentPortfolio.module.css";
 
-// Import images
-import viaImage from "../Images for investment/Via.webp";
-import pushImage from "../Images for investment/Push.png";
-import pepcareImage from "../Images for investment/Pepcare.png";
-import orbcommImage from "../Images for investment/Orbcomm.jpg";
-import operatioraiImage from "../Images for investment/Operatiorai.png";
-import midalloyImage from "../Images for investment/Midalloy.png";
-import hawxImage from "../Images for investment/Hawx.png";
-import decernaImage from "../Images for investment/Decerna.png";
-import bracketologyImage from "../Images for investment/Bracketology.jpg";
-import belonglyImage from "../Images for investment/Belongly.png";
-import aquacyclImage from "../Images for investment/Aquacycl.png";
-import ameyaImage from "../Images for investment/Ameya.webp";
-import aervivoImage from "../Images for investment/Aervivo.jpg";
+// Import images using dynamic imports to ensure they load correctly
+const viaImage = new URL("../Images for investment/Via.webp", import.meta.url).href;
+const pushImage = new URL("../Images for investment/Push.png", import.meta.url).href;
+const pepcareImage = new URL("../Images for investment/Pepcare.png", import.meta.url).href;
+const orbcommImage = new URL("../Images for investment/Orbcomm.jpg", import.meta.url).href;
+const operatioraiImage = new URL("../Images for investment/Operatiorai.png", import.meta.url).href;
+const midalloyImage = new URL("../Images for investment/Midalloy.png", import.meta.url).href;
+const hawxImage = new URL("../Images for investment/Hawx.png", import.meta.url).href;
+const decernaImage = new URL("../Images for investment/Decerna.png", import.meta.url).href;
+const bracketologyImage = new URL("../Images for investment/Bracketology.jpg", import.meta.url).href;
+const belonglyImage = new URL("../Images for investment/Belongly.png", import.meta.url).href;
+const aquacyclImage = new URL("../Images for investment/Aquacycl.png", import.meta.url).href;
+const ameyaImage = new URL("../Images for investment/Ameya.webp", import.meta.url).href;
+const aervivoImage = new URL("../Images for investment/Aervivo.jpg", import.meta.url).href;
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -158,6 +157,8 @@ const InvestmentCard = ({ investment, index }: { investment: InvestmentCard; ind
   const innerRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
 
+
+
   useEffect(() => {
     if (!cardRef.current || !innerRef.current || !imageRef.current) return;
 
@@ -240,19 +241,15 @@ const InvestmentCard = ({ investment, index }: { investment: InvestmentCard; ind
 };
 
 const InvestmentPortfolio = () => {
-  const [showCurtain, setShowCurtain] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const backgroundRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setShowCurtain(true);
+    // Scroll to top when component mounts
+    window.scrollTo(0, 0);
   }, []);
-
-  const handleCurtainComplete = () => {
-    setShowCurtain(false);
-  };
 
   useEffect(() => {
     if (!containerRef.current || !titleRef.current || !subtitleRef.current || !backgroundRef.current) return;
@@ -300,11 +297,6 @@ const InvestmentPortfolio = () => {
 
   return (
     <>
-      <Curtain 
-        isVisible={showCurtain} 
-        sectionName="Investment Portfolio" 
-        onComplete={handleCurtainComplete} 
-      />
       <div ref={backgroundRef} className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
         <Navigation />
         <main className="pt-32">

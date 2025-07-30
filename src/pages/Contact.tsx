@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import emailjs from '@emailjs/browser';
 import Navigation from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,6 +21,23 @@ const Contact = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState<string>('');
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  // EmailJS configuration
+  const EMAILJS_SERVICE_ID = 'service_3y7z8r8';
+  const EMAILJS_TEMPLATE_ID = 'template_cojz4ml';
+  const EMAILJS_PUBLIC_KEY = '0fAPlrYg662S4MZka';
+  const CEO_EMAIL = 'cyriljyothiprakash@gmail.com';
+
+  // Check if EmailJS is properly configured
+  const isEmailJSConfigured = EMAILJS_SERVICE_ID !== 'YOUR_SERVICE_ID' && 
+                              EMAILJS_TEMPLATE_ID !== 'YOUR_TEMPLATE_ID' && 
+                              EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY';
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -77,21 +95,58 @@ const Contact = () => {
 
     setIsSubmitting(true);
     setSubmitStatus('idle');
+    setErrorMessage('');
 
     try {
-      // Simulate API call - replace with actual form submission logic
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      setSubmitStatus('success');
-      setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        subject: "",
-        message: ""
-      });
-    } catch (error) {
+      // Check if EmailJS is configured
+      if (!isEmailJSConfigured) {
+        throw new Error('EmailJS is not configured. Please set up your EmailJS credentials.');
+      }
+
+      // Prepare template parameters for EmailJS
+      const templateParams = {
+        to_email: CEO_EMAIL,
+        from_name: `${formData.firstName} ${formData.lastName}`,
+        from_email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+        reply_to: formData.email
+      };
+
+      // Send email using EmailJS
+      const response = await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        templateParams,
+        EMAILJS_PUBLIC_KEY
+      );
+
+      if (response.status === 200) {
+        setSubmitStatus('success');
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          subject: "",
+          message: ""
+        });
+      } else {
+        throw new Error('Failed to send email');
+      }
+    } catch (error: any) {
+      console.error('Email sending error:', error);
       setSubmitStatus('error');
+      
+      // Set specific error message
+      if (error.message?.includes('EmailJS is not configured')) {
+        setErrorMessage('Email service is not configured yet. Please contact the administrator.');
+      } else if (error.message?.includes('Invalid service ID')) {
+        setErrorMessage('Email service configuration error. Please try again later.');
+      } else if (error.message?.includes('Invalid template ID')) {
+        setErrorMessage('Email template configuration error. Please try again later.');
+      } else {
+        setErrorMessage('There was an error sending your message. Please try again or contact me directly.');
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -122,6 +177,15 @@ const Contact = () => {
               </p>
             </CardHeader>
             <CardContent>
+              {!isEmailJSConfigured && (
+                <Alert className="mb-6 border-yellow-200 bg-yellow-50">
+                  <AlertCircle className="h-4 w-4 text-yellow-600" />
+                  <AlertDescription className="text-yellow-800">
+                    ⚠️ Email service is not configured yet. Please follow the setup guide in EMAILJS_SETUP.md to enable email functionality.
+                  </AlertDescription>
+                </Alert>
+              )}
+
               {submitStatus === 'success' && (
                 <Alert className="mb-6 border-green-200 bg-green-50">
                   <CheckCircle className="h-4 w-4 text-green-600" />
@@ -135,7 +199,7 @@ const Contact = () => {
                 <Alert className="mb-6 border-red-200 bg-red-50">
                   <AlertCircle className="h-4 w-4 text-red-600" />
                   <AlertDescription className="text-red-800">
-                    There was an error sending your message. Please try again or contact me directly.
+                    {errorMessage || "There was an error sending your message. Please try again or contact me directly."}
                   </AlertDescription>
                 </Alert>
               )}

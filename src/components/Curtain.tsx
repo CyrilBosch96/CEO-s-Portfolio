@@ -40,14 +40,14 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
         setAnimationPhase('visible');
         setShowText(true);
         console.log('[Curtain] Animation phase: visible, showText: true');
-      }, 1000);
+      }, 500); // Reduced from 1000ms to 500ms
       timersRef.current.push(showTextTimer);
 
       const slideUpTimer = setTimeout(() => {
         setShowText(false);
         setAnimationPhase('sliding-up');
         console.log('[Curtain] Animation phase: sliding-up, showText: false');
-      }, 2500);
+      }, 1200); // Reduced from 2500ms to 1200ms
       timersRef.current.push(slideUpTimer);
 
       const completeTimer = setTimeout(() => {
@@ -55,7 +55,7 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
         setShouldRender(false);
         onComplete();
         console.log('[Curtain] Animation phase: hidden, shouldRender: false');
-      }, 3500);
+      }, 1500); // Reduced from 3500ms to 1500ms
       timersRef.current.push(completeTimer);
 
       return () => {
@@ -94,8 +94,11 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
 
   return (
     <div 
-      className="fixed inset-0 bg-black z-[200] flex items-center justify-center"
+      className="fixed inset-0 z-[200] flex items-center justify-center"
       style={{
+        background: `
+          linear-gradient(135deg, white 0%, #9333ea 50%, #3b82f6 100%)
+        `,
         transform: getTransform(),
         transition: animationPhase === 'hidden' ? 'none' : 'transform 1000ms cubic-bezier(0.4, 0.0, 0.2, 1)',
         willChange: 'transform',

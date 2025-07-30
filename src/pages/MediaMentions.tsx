@@ -1,7 +1,7 @@
 import Navigation from "@/components/Navigation";
-import { useEffect, useRef, useState, useLayoutEffect } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { ForwardedRef, forwardRef } from 'react';
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 interface MediaMention {
   source: string;
@@ -9,324 +9,170 @@ interface MediaMention {
   date: string;
   link: string;
   preview?: string;
+  logoUrl?: string; // Optional logo image
 }
 
 const mediaMentionsData: MediaMention[] = [
   {
-    source: "YOUTUBE",
-    headline: "Techjays AI: Standing Out in 2024",
-    date: "DECEMBER 2024",
-    link: "https://www.youtube.com/watch?v=dlD9yiJs070",
-    preview: "An in-depth look at how Techjays is revolutionizing the AI industry with innovative solutions and cutting-edge technology."
-  },
-  {
     source: "DIGITAL DIGEST",
-    headline: "Philip Clements Samuelraj on AI's Future",
-    date: "APRIL 2025",
+    headline: "What Makes Techjays AI Products STAND OUT?",
+    date: "2024",
     link: "https://digitaldigest.com/techjays-ai-future-philip-clements-samuelraj/",
-    preview: "Philip Samuelraj shares his insights on the future of AI and how Techjays is positioning itself at the forefront of technological innovation."
+    preview: "Exploring the innovative AI solutions and technology leadership that sets Techjays apart in the industry.",
+    logoUrl: "https://digitaldigest.com/wp-content/uploads/2023/01/digital-digest-logo.png"
   },
   {
     source: "BOLD JOURNEY",
-    headline: "Philip Samuelraj: Building Techjays",
-    date: "FEBRUARY 2025",
+    headline: "Meet Philip Samuelraj",
+    date: "2024",
     link: "https://boldjourney.com/meet-philip-samuelraj/",
-    preview: "The inspiring journey of Philip Samuelraj and his vision for building Techjays into a global technology leader."
+    preview: "An in-depth profile of Philip Samuelraj's journey in technology and entrepreneurship.",
+    logoUrl: "https://boldjourney.com/wp-content/uploads/2023/01/bold-journey-logo.png"
   },
   {
     source: "MEDIUM",
     headline: "Philip Samuelraj's Vision: Empowering People and Innovating Software Services",
-    date: "NOVEMBER 2024",
+    date: "2024",
     link: "https://medium.com/strtupboost/philip-samuelrajs-vision-empowering-people-and-innovating-software-services-593cab150352",
-    preview: "Exploring Philip Samuelraj's vision for empowering people through innovative software services and technological advancement."
+    preview: "A comprehensive look at Philip Samuelraj's vision for empowering people through innovative software services.",
+    logoUrl: "https://miro.medium.com/max/8978/1*s986xIGqhfsN8U--09_AdA.png"
   },
   {
-    source: "TOPFIRMS.CO",
-    headline: "Philip Samuelraj on Techjays' Mission",
-    date: "OCTOBER 2024",
+    source: "TOP FIRMS",
+    headline: "Founder of Techjays",
+    date: "2024",
     link: "https://topfirms.co/interview/founder-of-techjays",
-    preview: "An exclusive interview with Philip Samuelraj discussing Techjays' mission and its impact on the technology industry."
+    preview: "An exclusive interview with the founder of Techjays discussing innovation and leadership in technology.",
+    logoUrl: "https://topfirms.co/wp-content/uploads/2023/01/topfirms-logo.png"
   }
 ];
 
-const PreviewCard = forwardRef<HTMLDivElement, { mention: MediaMention }>(({ mention }, ref) => {
-  return (
-    <div 
-      ref={ref}
-      className="fixed bg-white p-4 sm:p-8 rounded-2xl shadow-xl pointer-events-none opacity-0"
-      style={{ 
-        width: '350px',
-        height: '220px',
-        zIndex: 1000,
-        transform: 'translate(10px, 10px)'
-      }}
-    >
-      <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 sm:mb-4">{mention.headline}</h3>
-      <p className="text-sm sm:text-base text-gray-600 mb-2 sm:mb-4">{mention.preview}</p>
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between text-xs sm:text-sm text-gray-500">
-        <span>{mention.source}</span>
-        <span>{mention.date}</span>
-      </div>
-    </div>
-  );
-});
-
-PreviewCard.displayName = 'PreviewCard';
-
-const MediaMentionCard = forwardRef<HTMLDivElement, { mention: MediaMention }>(({ mention }, ref) => {
-  const previewRef = useRef<HTMLDivElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleClick = () => {
-    window.open(mention.link, '_blank');
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (previewRef.current && isHovered) {
-      const x = e.clientX;
-      const y = e.clientY;
-
-      gsap.to(previewRef.current, {
-        left: x,
-        top: y,
-        duration: 0.1,
-        ease: "power2.out"
-      });
-    }
-  };
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-    if (previewRef.current) {
-      gsap.fromTo(previewRef.current,
-        {
-          opacity: 0,
-          scale: 0.8,
-          y: 20
-        },
-        {
-          opacity: 1,
-          scale: 1,
-          y: 0,
-          duration: 0.4,
-          ease: "back.out(1.7)"
-        }
-      );
-    }
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    if (previewRef.current) {
-      gsap.to(previewRef.current, {
-        opacity: 0,
-        scale: 0.8,
-        y: 20,
-        duration: 0.3,
-        ease: "power2.in"
-      });
-    }
-  };
+const MediaMentions = () => {
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    const handleGlobalMouseMove = (e: MouseEvent) => {
-      if (previewRef.current && isHovered) {
-        const x = e.clientX;
-        const y = e.clientY;
+    // Scroll to top when component mounts
+    window.scrollTo(0, 0);
+    
+    // Register ScrollTrigger plugin
+    gsap.registerPlugin(ScrollTrigger);
 
-        gsap.to(previewRef.current, {
-          left: x,
-          top: y,
-          duration: 0.1,
-          ease: "power2.out"
-        });
+    // Set up skew animation
+    let proxy = { skew: 0 },
+        skewSetter = gsap.quickSetter(".skewElem", "skewY", "deg"),
+        clamp = gsap.utils.clamp(-20, 20);
+
+    ScrollTrigger.create({
+      onUpdate: (self) => {
+        let skew = clamp(self.getVelocity() / -300);
+        if (Math.abs(skew) > Math.abs(proxy.skew)) {
+          proxy.skew = skew;
+          gsap.to(proxy, {
+            skew: 0, 
+            duration: 0.8, 
+            ease: "power3", 
+            overwrite: true, 
+            onUpdate: () => skewSetter(proxy.skew)
+          });
+        }
       }
-    };
+    });
 
-    window.addEventListener('mousemove', handleGlobalMouseMove);
-    return () => window.removeEventListener('mousemove', handleGlobalMouseMove);
-  }, [isHovered]);
+    // Set transform origin for skew elements
+    gsap.set(".skewElem", { transformOrigin: "right center", force3D: true });
 
-  return (
-    <div 
-      ref={cardRef}
-      className="relative w-full h-full flex items-center justify-center"
-      onMouseMove={handleMouseMove}
-    >
-      <div 
-        ref={ref} 
-        onClick={handleClick}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        className="flex flex-col items-center justify-center p-8 md:p-16 bg-white shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer"
-        style={{
-          width: '95%',
-          height: '85vh',
-          maxWidth: '900px',
-          maxHeight: '700px',
-          borderRadius: '80px'
-        }}
-      >
-        <p className="text-base md:text-xl text-gray-500 uppercase tracking-widest mb-4 md:mb-8">{mention.source}</p>
-        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 text-center leading-tight mb-6 md:mb-10">{mention.headline}</h2>
-        <p className="text-base md:text-2xl text-gray-500 uppercase tracking-wide">{mention.date}</p>
-      </div>
-      <PreviewCard ref={previewRef} mention={mention} />
-    </div>
-  );
-});
-
-MediaMentionCard.displayName = 'MediaMentionCard';
-
-const NewspaperBackground = () => {
-  const bgRef = useRef<HTMLDivElement>(null);
-
-  useLayoutEffect(() => {
-    if (!bgRef.current) return;
-    gsap.to(bgRef.current, {
-      backgroundPosition: '400px 200px',
-      duration: 20,
-      repeat: -1,
-      ease: 'linear',
+    // Original card animation
+    if (!cardsRef.current) return;
+    gsap.set(cardsRef.current, { opacity: 0, y: 40 });
+    gsap.to(cardsRef.current, {
+      opacity: 1,
+      y: 0,
+      duration: 0.7,
+      stagger: 0.15,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: cardsRef.current[0]?.parentElement,
+        start: "top 90%",
+        end: "bottom 10%",
+        toggleActions: "play none none reverse"
+      }
     });
   }, []);
 
   return (
-    <div
-      ref={bgRef}
-      className="fixed inset-0 z-0"
-      style={{
-        backgroundImage: `repeating-linear-gradient(0deg, #e5e7eb 0px, #e5e7eb 2px, transparent 2px, transparent 24px), repeating-linear-gradient(90deg, #e5e7eb 0px, #e5e7eb 2px, transparent 2px, transparent 24px), repeating-linear-gradient(0deg, #f3f4f6 0px, #f3f4f6 1px, transparent 1px, transparent 8px)`,
-        backgroundSize: '40px 24px, 40px 24px, 8px 8px',
-        backgroundPosition: '0px 0px',
-        opacity: 0.5,
-      }}
-    />
-  );
-};
-
-const MediaMentions = () => {
-  const backgroundRef = useRef<HTMLDivElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
-  const prevButtonRef = useRef<HTMLButtonElement>(null);
-  const nextButtonRef = useRef<HTMLButtonElement>(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isFlipping, setIsFlipping] = useState(false);
-
-  useEffect(() => {
-    if (!backgroundRef.current || !cardRef.current || !prevButtonRef.current || !nextButtonRef.current) return;
-
-    const tl = gsap.timeline({
-      defaults: { ease: "power3.out", duration: 1 }
-    });
-
-    // Initial state (hidden)
-    gsap.set([cardRef.current, prevButtonRef.current, nextButtonRef.current], {
-      opacity: 0,
-      y: 30
-    });
-
-    // Intro animation
-    tl.to(cardRef.current, { opacity: 1, y: 0 }, "+=0.5")
-      .to(prevButtonRef.current, { opacity: 1, y: 0 }, "-=0.8")
-      .to(nextButtonRef.current, { opacity: 1, y: 0 }, "<0.1");
-
-    // Background animation
-    gsap.to(backgroundRef.current, {
-      background: "linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)",
-      duration: 2,
-      ease: "power2.inOut"
-    });
-
-    return () => {
-      // Cleanup animations if needed
-    };
-  }, [currentIndex]);
-
-  const nextCard = () => {
-    if (isFlipping) return;
-    setIsFlipping(true);
-
-    if (cardRef.current) {
-      gsap.to(cardRef.current, {
-        rotationY: 90,
-        duration: 0.3,
-        ease: "power2.in",
-        onComplete: () => {
-          setCurrentIndex((prevIndex) => (prevIndex + 1) % mediaMentionsData.length);
-          gsap.set(cardRef.current, { rotationY: -90 });
-          gsap.to(cardRef.current, {
-            rotationY: 0,
-            duration: 0.3,
-            ease: "power2.out",
-            onComplete: () => setIsFlipping(false)
-          });
-        }
-      });
-    }
-  };
-
-  const prevCard = () => {
-    if (isFlipping) return;
-    setIsFlipping(true);
-
-    if (cardRef.current) {
-      gsap.to(cardRef.current, {
-        rotationY: -90,
-        duration: 0.3,
-        ease: "power2.in",
-        onComplete: () => {
-          setCurrentIndex((prevIndex) =>
-            prevIndex === 0 ? mediaMentionsData.length - 1 : prevIndex - 1
-          );
-          gsap.set(cardRef.current, { rotationY: 90 });
-          gsap.to(cardRef.current, {
-            rotationY: 0,
-            duration: 0.3,
-            ease: "power2.out",
-            onComplete: () => setIsFlipping(false)
-          });
-        }
-      });
-    }
-  };
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100">
-      <Navigation />
-      <NewspaperBackground />
-      <div 
-        ref={backgroundRef}
-        className="fixed inset-0 bg-gradient-to-br from-blue-50 to-blue-100 transition-colors duration-1000 z-0"
-      />
-      <div className="relative z-10 container mx-auto px-4 py-8 sm:py-16">
-        <div className="flex flex-col items-center justify-center min-h-[70vh] sm:min-h-[80vh]">
-          <div className="relative perspective-1000 w-full flex justify-center items-center">
-            <MediaMentionCard 
-              ref={cardRef}
-              mention={mediaMentionsData[currentIndex]} 
-            />
-          </div>
-          <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 mt-8">
-            <button
-              ref={prevButtonRef}
-              onClick={prevCard}
-              className="px-6 py-3 sm:px-8 sm:py-4 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 text-sm sm:text-base"
+    <>
+      <style>
+        {`
+          .skewElem {
+            transition: transform 0.3s ease;
+          }
+          .skewElem:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+          }
+          
+          .animated-gradient {
+            background: linear-gradient(-45deg, #ffffff, #e0e7ff, #c7d2fe, #a5b4fc, #818cf8, #6366f1, #4f46e5, #4338ca);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+          }
+          
+          @keyframes gradientShift {
+            0% {
+              background-position: 0% 50%;
+            }
+            50% {
+              background-position: 100% 50%;
+            }
+            100% {
+              background-position: 0% 50%;
+            }
+          }
+          
+          .gradient-overlay {
+            background: radial-gradient(ellipse at 30% 20%, rgba(147, 51, 234, 0.1) 0%, transparent 50%),
+                        radial-gradient(ellipse at 70% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                        radial-gradient(ellipse at 50% 50%, rgba(236, 72, 153, 0.05) 0%, transparent 60%);
+          }
+        `}
+      </style>
+      <div className="min-h-screen animated-gradient gradient-overlay">
+        <Navigation />
+      <div className="max-w-7xl mx-auto px-4 pt-32 pb-12">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4 drop-shadow-sm">
+            Media Mentions
+          </h1>
+          <p className="text-xl text-gray-700 max-w-3xl mx-auto drop-shadow-sm">
+            Recent coverage and interviews featuring Philip Samuelraj and Techjays
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {mediaMentionsData.map((mention, idx) => (
+            <div
+              key={mention.link}
+              ref={el => (cardsRef.current[idx] = el)}
+              className="skewElem bg-white/90 backdrop-blur-sm shadow-lg rounded-xl p-6 flex flex-col h-full border border-white/20"
             >
-              Previous
-            </button>
-            <button
-              ref={nextButtonRef}
-              onClick={nextCard}
-              className="px-6 py-3 sm:px-8 sm:py-4 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 text-sm sm:text-base"
-            >
-              Next
-            </button>
-          </div>
+              {/* Removed logo/initials section */}
+              <div className="flex-1 flex flex-col">
+                <h3 className="text-2xl font-bold text-gray-900 mb-3 leading-snug">{mention.headline}</h3>
+                <p className="text-lg text-gray-600 mb-6 flex-1">{mention.preview}</p>
+                <a
+                  href={mention.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-auto inline-block px-8 py-3 rounded bg-gray-400 text-white font-semibold text-base hover:bg-gray-700 transition-colors"
+                >
+                  READ AT {mention.source}
+                </a>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
+    </>
   );
 };
 

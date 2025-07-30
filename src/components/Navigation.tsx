@@ -10,6 +10,7 @@ const Navigation = () => {
   const [currentSection, setCurrentSection] = useState("");
 
   const navItems = [
+    { href: "/know-about-me", label: "Know About Me" },
     { href: "/techjays-overview", label: "Techjays Overview" },
     { href: "/investment-portfolio", label: "Investment Portfolio" },
     { href: "/media-mentions", label: "Media Mentions" },
@@ -25,10 +26,10 @@ const Navigation = () => {
     setCurrentSection(label);
     setCurtainVisible(true);
     
-    // Navigate to new page at 3 seconds (after curtain starts sliding up)
+    // Navigate to new page at 1.5 seconds (after curtain starts sliding up)
     setTimeout(() => {
       navigate(href);
-    }, 3000);
+    }, 1500);
   };
 
   const handleCurtainComplete = () => {
