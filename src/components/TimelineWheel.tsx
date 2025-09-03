@@ -247,7 +247,7 @@ const TimelineWheel = () => {
           {/* Content panels for different years */}
           <div className="content-panel panel-2015">
             <div className="content-image">
-              <img src="src/pages/Know/1.png" alt="2015 Milestone" onLoad={() => console.log('Image 1 loaded')} onError={(e) => console.error('Failed to load image 1:', e)} />
+              <img src="src/pages/know/1.png" alt="2015 Milestone" onLoad={() => console.log('Image 1 loaded')} onError={(e) => console.error('Failed to load image 1:', e)} />
             </div>
             <div className="content-text">
               <div className="content-title">Early Beginnings</div>
@@ -259,7 +259,7 @@ const TimelineWheel = () => {
 
           <div className="content-panel panel-2016">
             <div className="content-image">
-              <img src="src/pages/Know/2.png" alt="2016 Milestone" onLoad={() => console.log('Image 2 loaded')} onError={(e) => console.error('Failed to load image 2:', e)} />
+              <img src="src/pages/know/2.png" alt="2016 Milestone" onLoad={() => console.log('Image 2 loaded')} onError={(e) => console.error('Failed to load image 2:', e)} />
             </div>
             <div className="content-text">
               <div className="content-title">Innovation Phase</div>
@@ -271,7 +271,7 @@ const TimelineWheel = () => {
 
           <div className="content-panel panel-2017">
             <div className="content-image">
-              <img src="src/pages/Know/3.png" alt="2017 Milestone" onLoad={() => console.log('Image 3 loaded')} onError={(e) => console.error('Failed to load image 3:', e)} />
+              <img src="src/pages/know/3.png" alt="2017 Milestone" onLoad={() => console.log('Image 3 loaded')} onError={(e) => console.error('Failed to load image 3:', e)} />
             </div>
             <div className="content-text">
               <div className="content-title">Growth & Expansion</div>
@@ -283,7 +283,7 @@ const TimelineWheel = () => {
 
           <div className="content-panel panel-2018">
             <div className="content-image">
-              <img src="src/pages/Know/4.png" alt="2018 Milestone" onLoad={() => console.log('Image 4 loaded')} onError={(e) => console.error('Failed to load image 4:', e)} />
+              <img src="src/pages/know/4.png" alt="2018 Milestone" onLoad={() => console.log('Image 4 loaded')} onError={(e) => console.error('Failed to load image 4:', e)} />
             </div>
             <div className="content-text">
               <div className="content-title">Strategic Partnerships</div>
@@ -295,7 +295,7 @@ const TimelineWheel = () => {
 
           <div className="content-panel panel-2019">
             <div className="content-image">
-              <img src="src/pages/Know/5.png" alt="2019 Milestone" onLoad={() => console.log('Image 5 loaded')} onError={(e) => console.error('Failed to load image 5:', e)} />
+              <img src="src/pages/know/5.png" alt="2019 Milestone" onLoad={() => console.log('Image 5 loaded')} onError={(e) => console.error('Failed to load image 5:', e)} />
             </div>
             <div className="content-text">
               <div className="content-title">Techjays Foundation</div>
@@ -307,7 +307,7 @@ const TimelineWheel = () => {
 
           <div className="content-panel panel-2020">
             <div className="content-image">
-              <img src="src/pages/Know/6.png" alt="2020 Milestone" onLoad={() => console.log('Image 6 loaded')} onError={(e) => console.error('Failed to load image 6:', e)} />
+              <img src="src/pages/know/6.png" alt="2020 Milestone" onLoad={() => console.log('Image 6 loaded')} onError={(e) => console.error('Failed to load image 6:', e)} />
             </div>
             <div className="content-text">
               <div className="content-title">Digital Transformation</div>
@@ -319,7 +319,7 @@ const TimelineWheel = () => {
 
           <div className="content-panel panel-2021">
             <div className="content-image">
-              <img src="src/pages/Know/7.png" alt="2021 Milestone" onLoad={() => console.log('Image 7 loaded')} onError={(e) => console.error('Failed to load image 7:', e)} />
+              <img src="src/pages/know/7.png" alt="2021 Milestone" onLoad={() => console.log('Image 7 loaded')} onError={(e) => console.error('Failed to load image 7:', e)} />
             </div>
             <div className="content-text">
               <div className="content-title">Seela Launch</div>
@@ -331,7 +331,7 @@ const TimelineWheel = () => {
 
           <div className="content-panel panel-2022">
             <div className="content-image">
-              <img src="src/pages/Know/8.png" alt="2022 Milestone" onLoad={() => console.log('Image 8 loaded')} onError={(e) => console.error('Failed to load image 8:', e)} />
+              <img src="src/pages/know/8.png" alt="2022 Milestone" onLoad={() => console.log('Image 8 loaded')} onError={(e) => console.error('Failed to load image 8:', e)} />
             </div>
             <div className="content-text">
               <div className="content-title">Global Recognition</div>
@@ -343,7 +343,7 @@ const TimelineWheel = () => {
 
           <div className="content-panel panel-2023">
             <div className="content-image">
-              <img src="src/pages/Know/9.png" alt="2023 Milestone" onLoad={() => console.log('Image 9 loaded')} onError={(e) => console.error('Failed to load image 9:', e)} />
+              <img src="src/pages/know/9.png" alt="2023 Milestone" onLoad={() => console.log('Image 9 loaded')} onError={(e) => console.error('Failed to load image 9:', e)} />
             </div>
             <div className="content-text">
               <div className="content-title">NEVERHACK Rebranding</div>
@@ -355,7 +355,7 @@ const TimelineWheel = () => {
 
           <div className="content-panel panel-2024">
             <div className="content-image">
-              <img src="src/pages/Know/10.png" alt="2024 Milestone" onLoad={() => console.log('Image 10 loaded')} onError={(e) => console.error('Failed to load image 10:', e)} />
+              <img src="src/pages/know/10.png" alt="2024 Milestone" onLoad={() => console.log('Image 10 loaded')} onError={(e) => console.error('Failed to load image 10:', e)} />
             </div>
             <div className="content-text">
               <div className="content-title">Cybersecurity Integration</div>
@@ -381,7 +381,7 @@ const TimelineWheel = () => {
         }
 
         .timeline-section {
-          height: 400vh;
+          height: 600vh; /* Extended from 400vh to 600vh for more scrolling */
           position: relative;
           background: linear-gradient(135deg, #ffffff 0%, #f8faff 25%, #f0f4ff 50%, #e8f0ff 75%, #e0ecff 100%);
           color: #1f2937;
@@ -410,6 +410,7 @@ const TimelineWheel = () => {
           align-items: center;
           justify-content: center;
           padding-right: 40px;
+          z-index: 20; /* Higher z-index to stay on top */
         }
 
         .semi-circle-container {
@@ -566,6 +567,7 @@ const TimelineWheel = () => {
           padding-left: 20px;
           padding-right: 20px;
           position: relative;
+          z-index: 10; /* Lower z-index to appear behind the wheel */
         }
 
         .content-panel {
@@ -581,6 +583,7 @@ const TimelineWheel = () => {
           top: 0;
           left: 0;
           pointer-events: none;
+          z-index: 5; /* Even lower z-index for content panels */
         }
 
         .content-panel.active {
@@ -601,6 +604,7 @@ const TimelineWheel = () => {
           background: linear-gradient(135deg, #f8faff 0%, #f0f4ff 100%);
           box-shadow: 0 12px 35px rgba(139, 92, 246, 0.2);
           border: 1px solid rgba(139, 92, 246, 0.1);
+          backdrop-filter: blur(10px); /* Add blur effect for behind effect */
         }
 
         .content-image img {
@@ -608,10 +612,12 @@ const TimelineWheel = () => {
           height: 100%;
           object-fit: cover;
           transition: transform 0.3s ease;
+          filter: brightness(0.9) contrast(1.1); /* Slightly dimmed for behind effect */
         }
 
         .content-image:hover img {
           transform: scale(1.05);
+          filter: brightness(1) contrast(1); /* Normal brightness on hover */
         }
 
         .content-text {
@@ -621,6 +627,7 @@ const TimelineWheel = () => {
           justify-content: center;
           min-height: 300px;
           padding: 20px 0;
+          backdrop-filter: blur(5px); /* Add blur effect */
         }
 
         .content-icon {
@@ -646,6 +653,7 @@ const TimelineWheel = () => {
           text-transform: uppercase;
           letter-spacing: 1.5px;
           font-weight: 500;
+          opacity: 0.8; /* Slightly dimmed for behind effect */
         }
 
         .content-description {
@@ -653,6 +661,7 @@ const TimelineWheel = () => {
           font-size: 20px;
           line-height: 1.7;
           font-weight: 300;
+          opacity: 0.9; /* Slightly dimmed for behind effect */
         }
 
         /* Year display */
