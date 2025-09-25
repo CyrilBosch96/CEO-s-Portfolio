@@ -1,5 +1,5 @@
 import Navigation from "@/navigation/Navigation";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -49,6 +49,8 @@ const mediaMentionsData: MediaMention[] = [
 
 const MediaMentions = () => {
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
   useEffect(() => {
     // Scroll to top when component mounts
@@ -57,122 +59,160 @@ const MediaMentions = () => {
     // Register ScrollTrigger plugin
     gsap.registerPlugin(ScrollTrigger);
 
-    // Set up skew animation
-    let proxy = { skew: 0 },
-        skewSetter = gsap.quickSetter(".skewElem", "skewY", "deg"),
-        clamp = gsap.utils.clamp(-20, 20);
+    if (!containerRef.current) return;
 
-    ScrollTrigger.create({
-      onUpdate: (self) => {
-        let skew = clamp(self.getVelocity() / -300);
-        if (Math.abs(skew) > Math.abs(proxy.skew)) {
-          proxy.skew = skew;
-          gsap.to(proxy, {
-            skew: 0, 
-            duration: 0.8, 
-            ease: "power3", 
-            overwrite: true, 
-            onUpdate: () => skewSetter(proxy.skew)
-          });
+    const ctx = gsap.context(() => {
+      // Clean, professional hero animation
+      gsap.fromTo(".hero-title", 
+        { 
+          y: 30, 
+          opacity: 0
+        },
+        { 
+          y: 0, 
+          opacity: 1,
+          duration: 0.8, 
+          ease: "power2.out" 
         }
-      }
-    });
+      );
+      
+      gsap.fromTo(".hero-subtitle", 
+        { 
+          y: 20, 
+          opacity: 0
+        },
+        { 
+          y: 0, 
+          opacity: 1,
+          duration: 0.8, 
+          delay: 0.2, 
+          ease: "power2.out" 
+        }
+      );
 
-    // Set transform origin for skew elements
-    gsap.set(".skewElem", { transformOrigin: "right center", force3D: true });
+      // Subtle card entrance animation
+      gsap.fromTo(cardsRef.current, 
+        { 
+          y: 40, 
+          opacity: 0
+        },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".media-grid",
+            start: "top 90%",
+            end: "bottom 10%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
 
-    // Original card animation
-    if (!cardsRef.current) return;
-    gsap.set(cardsRef.current, { opacity: 0, y: 40 });
-    gsap.to(cardsRef.current, {
-      opacity: 1,
-      y: 0,
-      duration: 0.7,
-      stagger: 0.15,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: cardsRef.current[0]?.parentElement,
-        start: "top 90%",
-        end: "bottom 10%",
-        toggleActions: "play none none reverse"
-      }
-    });
+      // Professional hover effects
+      cardsRef.current.forEach((card) => {
+        if (card) {
+          const hoverTl = gsap.timeline({ paused: true });
+          
+          hoverTl.to(card, {
+            y: -8,
+            scale: 1.01,
+            duration: 0.3,
+            ease: "power2.out"
+          });
+
+          card.addEventListener("mouseenter", () => hoverTl.play());
+          card.addEventListener("mouseleave", () => hoverTl.reverse());
+        }
+      });
+
+    }, containerRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
-    <>
-      <style>
-        {`
-          .skewElem {
-            transition: transform 0.3s ease;
-          }
-          .skewElem:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-          }
-          
-          .animated-gradient {
-            background: linear-gradient(-45deg, #ffffff, #e0e7ff, #c7d2fe, #a5b4fc, #818cf8, #6366f1, #4f46e5, #4338ca);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-          }
-          
-          @keyframes gradientShift {
-            0% {
-              background-position: 0% 50%;
-            }
-            50% {
-              background-position: 100% 50%;
-            }
-            100% {
-              background-position: 0% 50%;
-            }
-          }
-          
-          .gradient-overlay {
-            background: radial-gradient(ellipse at 30% 20%, rgba(147, 51, 234, 0.1) 0%, transparent 50%),
-                        radial-gradient(ellipse at 70% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-                        radial-gradient(ellipse at 50% 50%, rgba(236, 72, 153, 0.05) 0%, transparent 60%);
-          }
-        `}
-      </style>
-      <div className="min-h-screen animated-gradient gradient-overlay">
-        <Navigation />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 md:pt-28 lg:pt-32 pb-12">
-        <div className="text-center mb-8 sm:mb-12">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-800 mb-3 sm:mb-4 drop-shadow-sm">
-            Media Mentions
+    <div ref={containerRef} className="min-h-screen bg-blue-950 relative overflow-hidden">
+      <Navigation />
+      
+      {/* Clean Background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Subtle gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-purple-900/20"></div>
+      </div>
+
+      {/* Hero Section */}
+      <div className="relative z-10 pt-16 pb-12">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h1 className="hero-title text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
+            Media <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">Mentions</span>
           </h1>
-          <p className="text-lg sm:text-xl text-gray-700 max-w-3xl mx-auto drop-shadow-sm px-4">
+          <p className="hero-subtitle text-lg md:text-xl text-blue-200 max-w-3xl mx-auto leading-relaxed">
             Recent coverage and interviews featuring Philip Samuelraj and Techjays
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+      </div>
+
+      {/* Media Grid */}
+      <div className="relative z-10 pb-16">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="media-grid grid grid-cols-1 lg:grid-cols-2 gap-10">
           {mediaMentionsData.map((mention, idx) => (
             <div
               key={mention.link}
               ref={el => (cardsRef.current[idx] = el)}
-              className="skewElem bg-white/90 backdrop-blur-sm shadow-lg rounded-xl p-4 sm:p-6 flex flex-col h-full border border-white/20"
-            >
-              {/* Removed logo/initials section */}
-              <div className="flex-1 flex flex-col">
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 leading-snug">{mention.headline}</h3>
-                <p className="text-base sm:text-lg text-gray-600 mb-4 sm:mb-6 flex-1">{mention.preview}</p>
-                <a
-                  href={mention.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-auto inline-block px-6 sm:px-8 py-2 sm:py-3 rounded bg-gray-400 text-white font-semibold text-sm sm:text-base hover:bg-gray-700 transition-colors text-center"
-                >
-                  READ AT {mention.source}
-                </a>
+                className="group relative"
+                onMouseEnter={() => setHoveredCard(idx)}
+                onMouseLeave={() => setHoveredCard(null)}
+              >
+                {/* Compact Professional Card */}
+                <div className="relative bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 hover:border-white/40 transition-all duration-300 hover:bg-white/15 hover:shadow-lg">
+                  
+                  {/* Source Badge */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                      <span className="text-blue-300 font-semibold text-xs uppercase tracking-wide">
+                        {mention.source}
+                      </span>
+                    </div>
+                    <span className="text-blue-400/80 text-xs font-medium">
+                      {mention.date}
+                    </span>
+                  </div>
+
+                  {/* Headline */}
+                  <h3 className="text-lg md:text-xl font-bold text-white mb-3 leading-tight">
+                    {mention.headline}
+                  </h3>
+
+                  {/* Preview */}
+                  <p className="text-blue-200/80 text-sm leading-relaxed mb-6">
+                    {mention.preview}
+                  </p>
+
+                  {/* Read More Button */}
+                  <a
+                    href={mention.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-lg hover:from-blue-400 hover:to-purple-400 transition-all duration-300 shadow-lg hover:shadow-blue-500/25 text-sm"
+                  >
+                    <span>Read Article</span>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </a>
+                </div>
               </div>
+            ))}
             </div>
-          ))}
         </div>
       </div>
+
     </div>
-    </>
   );
 };
 
