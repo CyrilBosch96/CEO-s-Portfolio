@@ -107,7 +107,7 @@ const ServicesCardDeck = () => {
     
     // Set up infinite scroll animation
     gsap.to(carousel, {
-      x: -(services.length * 374), // card width + gap
+      x: -(services.length * 286), // card width (280px) + gap (6px)
       duration: 20,
       ease: "none",
       repeat: -1,
@@ -120,21 +120,21 @@ const ServicesCardDeck = () => {
   }, [services.length]);
 
   return (
-    <div className="w-full py-8 md:py-16 relative">
+    <div className="w-full py-6 sm:py-8 md:py-16 relative bg-transparent">
       <div className="w-full text-center">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-8 md:mb-16 bg-gradient-to-r from-purple-600 via-blue-600 to-pink-600 bg-clip-text text-transparent px-4">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-8 sm:mb-12 md:mb-16 bg-gradient-to-r from-purple-600 via-blue-600 to-pink-600 bg-clip-text text-transparent px-4 leading-tight">
           Techjays Services
         </h2>
 
         <div 
           ref={containerRef}
-          className="relative h-[600px] overflow-hidden w-full"
+          className="relative h-[280px] sm:h-[320px] md:h-[360px] overflow-hidden w-full bg-transparent"
         >
           <div 
             ref={carouselRef}
             className="flex gap-6 absolute top-0 left-0 h-full"
             style={{ 
-              width: `${services.length * 3 * 374}px`, // 3 sets of cards for infinite loop
+              width: `${services.length * 3 * 286}px`, // 3 sets of cards for infinite loop (280px + 6px gap)
               minWidth: '100vw'
             }}
           >
@@ -142,22 +142,22 @@ const ServicesCardDeck = () => {
             {services.map((service, index) => (
               <div
                 key={`set1-${index}`}
-                className="w-[350px] h-full flex-shrink-0 cursor-pointer"
+                className="w-[220px] sm:w-[250px] md:w-[280px] h-full flex-shrink-0 cursor-pointer"
                 onClick={() => openServiceUrl(service.url)}
               >
-                <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-2xl border border-white/50 h-full w-full flex flex-col items-center justify-center text-center hover:shadow-3xl transition-all duration-300 hover:scale-105">
-                  <div className="flex items-center justify-center bg-gradient-to-br from-purple-500 to-blue-500 rounded-2xl shadow-lg w-16 h-16 text-3xl mb-4">
+                  <div className="bg-white/95 backdrop-blur-sm rounded-xl p-3 sm:p-4 shadow-xl border border-white/50 h-full w-full flex flex-col items-center justify-center text-center hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:bg-gradient-to-br hover:from-purple-100 hover:via-blue-100 hover:to-pink-100 hover:rounded-2xl">
+                    <div className="flex items-center justify-center bg-gradient-to-br from-purple-500 to-blue-500 rounded-xl shadow-md w-10 h-10 sm:w-12 sm:h-12 text-xl sm:text-2xl mb-2 sm:mb-3 hover:from-purple-500 hover:via-blue-500 hover:to-pink-500 hover:shadow-lg hover:scale-110 transition-all duration-300">
                     {service.icon}
                   </div>
-                  <h3 className="font-bold text-gray-900 mb-3 text-lg leading-tight">
+                  <h3 className="font-bold text-gray-900 mb-1 sm:mb-2 text-sm sm:text-base leading-tight">
                     {service.title}
                   </h3>
-                  <p className="text-gray-600 leading-relaxed text-sm mb-4 flex-1">
+                  <p className="text-gray-600 leading-relaxed text-xs sm:text-sm mb-2 sm:mb-3 flex-1">
                     {service.description}
                   </p>
-                  <div className="flex items-center gap-2 text-purple-600 font-medium text-sm">
+                    <div className="flex items-center gap-1 text-purple-600 font-medium text-xs sm:text-sm hover:text-transparent hover:bg-gradient-to-r hover:from-purple-500 hover:via-blue-500 hover:to-pink-500 hover:bg-clip-text transition-all duration-300">
                     <span>Learn More</span>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-3 h-3 sm:w-3 sm:h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                     </svg>
                   </div>
@@ -169,22 +169,22 @@ const ServicesCardDeck = () => {
             {services.map((service, index) => (
               <div
                 key={`set2-${index}`}
-                className="w-[350px] h-full flex-shrink-0 cursor-pointer"
+                className="w-[220px] sm:w-[250px] md:w-[280px] h-full flex-shrink-0 cursor-pointer"
                 onClick={() => openServiceUrl(service.url)}
               >
-                <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-2xl border border-white/50 h-full w-full flex flex-col items-center justify-center text-center hover:shadow-3xl transition-all duration-300 hover:scale-105">
-                  <div className="flex items-center justify-center bg-gradient-to-br from-purple-500 to-blue-500 rounded-2xl shadow-lg w-16 h-16 text-3xl mb-4">
+                  <div className="bg-white/95 backdrop-blur-sm rounded-xl p-3 sm:p-4 shadow-xl border border-white/50 h-full w-full flex flex-col items-center justify-center text-center hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:bg-gradient-to-br hover:from-purple-100 hover:via-blue-100 hover:to-pink-100 hover:rounded-2xl">
+                    <div className="flex items-center justify-center bg-gradient-to-br from-purple-500 to-blue-500 rounded-xl shadow-md w-10 h-10 sm:w-12 sm:h-12 text-xl sm:text-2xl mb-2 sm:mb-3 hover:from-purple-500 hover:via-blue-500 hover:to-pink-500 hover:shadow-lg hover:scale-110 transition-all duration-300">
                     {service.icon}
                   </div>
-                  <h3 className="font-bold text-gray-900 mb-3 text-lg leading-tight">
+                  <h3 className="font-bold text-gray-900 mb-1 sm:mb-2 text-sm sm:text-base leading-tight">
                     {service.title}
                   </h3>
-                  <p className="text-gray-600 leading-relaxed text-sm mb-4 flex-1">
+                  <p className="text-gray-600 leading-relaxed text-xs sm:text-sm mb-2 sm:mb-3 flex-1">
                     {service.description}
                   </p>
-                  <div className="flex items-center gap-2 text-purple-600 font-medium text-sm">
+                    <div className="flex items-center gap-1 text-purple-600 font-medium text-xs sm:text-sm hover:text-transparent hover:bg-gradient-to-r hover:from-purple-500 hover:via-blue-500 hover:to-pink-500 hover:bg-clip-text transition-all duration-300">
                     <span>Learn More</span>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-3 h-3 sm:w-3 sm:h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                     </svg>
                   </div>
@@ -196,22 +196,22 @@ const ServicesCardDeck = () => {
             {services.map((service, index) => (
               <div
                 key={`set3-${index}`}
-                className="w-[350px] h-full flex-shrink-0 cursor-pointer"
+                className="w-[220px] sm:w-[250px] md:w-[280px] h-full flex-shrink-0 cursor-pointer"
                 onClick={() => openServiceUrl(service.url)}
               >
-                <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-2xl border border-white/50 h-full w-full flex flex-col items-center justify-center text-center hover:shadow-3xl transition-all duration-300 hover:scale-105">
-                  <div className="flex items-center justify-center bg-gradient-to-br from-purple-500 to-blue-500 rounded-2xl shadow-lg w-16 h-16 text-3xl mb-4">
+                  <div className="bg-white/95 backdrop-blur-sm rounded-xl p-3 sm:p-4 shadow-xl border border-white/50 h-full w-full flex flex-col items-center justify-center text-center hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:bg-gradient-to-br hover:from-purple-100 hover:via-blue-100 hover:to-pink-100 hover:rounded-2xl">
+                    <div className="flex items-center justify-center bg-gradient-to-br from-purple-500 to-blue-500 rounded-xl shadow-md w-10 h-10 sm:w-12 sm:h-12 text-xl sm:text-2xl mb-2 sm:mb-3 hover:from-purple-500 hover:via-blue-500 hover:to-pink-500 hover:shadow-lg hover:scale-110 transition-all duration-300">
                     {service.icon}
                   </div>
-                  <h3 className="font-bold text-gray-900 mb-3 text-lg leading-tight">
+                  <h3 className="font-bold text-gray-900 mb-1 sm:mb-2 text-sm sm:text-base leading-tight">
                     {service.title}
                   </h3>
-                  <p className="text-gray-600 leading-relaxed text-sm mb-4 flex-1">
+                  <p className="text-gray-600 leading-relaxed text-xs sm:text-sm mb-2 sm:mb-3 flex-1">
                     {service.description}
                   </p>
-                  <div className="flex items-center gap-2 text-purple-600 font-medium text-sm">
+                    <div className="flex items-center gap-1 text-purple-600 font-medium text-xs sm:text-sm hover:text-transparent hover:bg-gradient-to-r hover:from-purple-500 hover:via-blue-500 hover:to-pink-500 hover:bg-clip-text transition-all duration-300">
                     <span>Learn More</span>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-3 h-3 sm:w-3 sm:h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                     </svg>
                   </div>

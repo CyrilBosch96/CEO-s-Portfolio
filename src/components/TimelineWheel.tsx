@@ -247,7 +247,7 @@ const TimelineWheel = () => {
           {/* Content panels for different years */}
           <div className="content-panel panel-2015">
             <div className="content-image">
-              <img src="src/pages/know/1.png" alt="2015 Milestone" onLoad={() => console.log('Image 1 loaded')} onError={(e) => console.error('Failed to load image 1:', e)} />
+              <img src="/src/assets/images/Know/1.png" alt="2015 Milestone" onLoad={() => console.log('Image 1 loaded')} onError={(e) => console.error('Failed to load image 1:', e)} />
             </div>
             <div className="content-text">
               <div className="content-title">Early Beginnings</div>
@@ -259,7 +259,7 @@ const TimelineWheel = () => {
 
           <div className="content-panel panel-2016">
             <div className="content-image">
-              <img src="src/pages/know/2.png" alt="2016 Milestone" onLoad={() => console.log('Image 2 loaded')} onError={(e) => console.error('Failed to load image 2:', e)} />
+              <img src="/src/assets/images/Know/2.png" alt="2016 Milestone" onLoad={() => console.log('Image 2 loaded')} onError={(e) => console.error('Failed to load image 2:', e)} />
             </div>
             <div className="content-text">
               <div className="content-title">Innovation Phase</div>
@@ -271,7 +271,7 @@ const TimelineWheel = () => {
 
           <div className="content-panel panel-2017">
             <div className="content-image">
-              <img src="src/pages/know/3.png" alt="2017 Milestone" onLoad={() => console.log('Image 3 loaded')} onError={(e) => console.error('Failed to load image 3:', e)} />
+              <img src="/src/assets/images/Know/3.png" alt="2017 Milestone" onLoad={() => console.log('Image 3 loaded')} onError={(e) => console.error('Failed to load image 3:', e)} />
             </div>
             <div className="content-text">
               <div className="content-title">Growth & Expansion</div>
@@ -283,7 +283,7 @@ const TimelineWheel = () => {
 
           <div className="content-panel panel-2018">
             <div className="content-image">
-              <img src="src/pages/know/4.png" alt="2018 Milestone" onLoad={() => console.log('Image 4 loaded')} onError={(e) => console.error('Failed to load image 4:', e)} />
+              <img src="/src/assets/images/Know/4.png" alt="2018 Milestone" onLoad={() => console.log('Image 4 loaded')} onError={(e) => console.error('Failed to load image 4:', e)} />
             </div>
             <div className="content-text">
               <div className="content-title">Strategic Partnerships</div>
@@ -295,7 +295,7 @@ const TimelineWheel = () => {
 
           <div className="content-panel panel-2019">
             <div className="content-image">
-              <img src="src/pages/know/5.png" alt="2019 Milestone" onLoad={() => console.log('Image 5 loaded')} onError={(e) => console.error('Failed to load image 5:', e)} />
+              <img src="/src/assets/images/Know/5.png" alt="2019 Milestone" onLoad={() => console.log('Image 5 loaded')} onError={(e) => console.error('Failed to load image 5:', e)} />
             </div>
             <div className="content-text">
               <div className="content-title">Techjays Foundation</div>
@@ -307,7 +307,7 @@ const TimelineWheel = () => {
 
           <div className="content-panel panel-2020">
             <div className="content-image">
-              <img src="src/pages/know/6.png" alt="2020 Milestone" onLoad={() => console.log('Image 6 loaded')} onError={(e) => console.error('Failed to load image 6:', e)} />
+              <img src="/src/assets/images/Know/6.png" alt="2020 Milestone" onLoad={() => console.log('Image 6 loaded')} onError={(e) => console.error('Failed to load image 6:', e)} />
             </div>
             <div className="content-text">
               <div className="content-title">Digital Transformation</div>
@@ -319,7 +319,7 @@ const TimelineWheel = () => {
 
           <div className="content-panel panel-2021">
             <div className="content-image">
-              <img src="src/pages/know/7.png" alt="2021 Milestone" onLoad={() => console.log('Image 7 loaded')} onError={(e) => console.error('Failed to load image 7:', e)} />
+              <img src="/src/assets/images/Know/7.png" alt="2021 Milestone" onLoad={() => console.log('Image 7 loaded')} onError={(e) => console.error('Failed to load image 7:', e)} />
             </div>
             <div className="content-text">
               <div className="content-title">Seela Launch</div>
@@ -331,7 +331,7 @@ const TimelineWheel = () => {
 
           <div className="content-panel panel-2022">
             <div className="content-image">
-              <img src="src/pages/know/8.png" alt="2022 Milestone" onLoad={() => console.log('Image 8 loaded')} onError={(e) => console.error('Failed to load image 8:', e)} />
+              <img src="/src/assets/images/Know/8.png" alt="2022 Milestone" onLoad={() => console.log('Image 8 loaded')} onError={(e) => console.error('Failed to load image 8:', e)} />
             </div>
             <div className="content-text">
               <div className="content-title">Global Recognition</div>
@@ -343,7 +343,7 @@ const TimelineWheel = () => {
 
           <div className="content-panel panel-2023">
             <div className="content-image">
-              <img src="src/pages/know/9.png" alt="2023 Milestone" onLoad={() => console.log('Image 9 loaded')} onError={(e) => console.error('Failed to load image 9:', e)} />
+              <img src="/src/assets/images/Know/9.png" alt="2023 Milestone" onLoad={() => console.log('Image 9 loaded')} onError={(e) => console.error('Failed to load image 9:', e)} />
             </div>
             <div className="content-text">
               <div className="content-title">NEVERHACK Rebranding</div>
@@ -355,7 +355,7 @@ const TimelineWheel = () => {
 
           <div className="content-panel panel-2024">
             <div className="content-image">
-              <img src="src/pages/know/10.png" alt="2024 Milestone" onLoad={() => console.log('Image 10 loaded')} onError={(e) => console.error('Failed to load image 10:', e)} />
+              <img src="/src/assets/images/Know/10.png" alt="2024 Milestone" onLoad={() => console.log('Image 10 loaded')} onError={(e) => console.error('Failed to load image 10:', e)} />
             </div>
             <div className="content-text">
               <div className="content-title">Cybersecurity Integration</div>
@@ -389,6 +389,13 @@ const TimelineWheel = () => {
           overflow-x: hidden;
         }
 
+        /* Hide timeline wheel on mobile devices */
+        @media (max-width: 768px) {
+          .timeline-section {
+            display: none;
+          }
+        }
+
         .timeline-container {
           position: fixed;
           top: 0;
@@ -398,7 +405,14 @@ const TimelineWheel = () => {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: 0 20px;
+          padding: 0 10px;
+        }
+
+        @media (max-width: 768px) {
+          .timeline-container {
+            flex-direction: column;
+            padding: 0 5px;
+          }
         }
 
         /* Left side - Semi-circle timeline */
@@ -413,11 +427,34 @@ const TimelineWheel = () => {
           z-index: 20; /* Higher z-index to stay on top */
         }
 
+        @media (max-width: 768px) {
+          .timeline-wheel {
+            width: 100vw;
+            height: 50vh;
+            padding-right: 0;
+            padding-bottom: 20px;
+          }
+        }
+
         .semi-circle-container {
           position: relative;
-          width: 450px;
-          height: 450px;
+          width: 300px;
+          height: 300px;
           overflow: visible;
+        }
+
+        @media (max-width: 768px) {
+          .semi-circle-container {
+            width: 200px;
+            height: 200px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .semi-circle-container {
+            width: 150px;
+            height: 150px;
+          }
         }
 
         /* Outer glow ring - half circle */
@@ -489,28 +526,28 @@ const TimelineWheel = () => {
         /* Timeline markers positioned on the right side of semi-circle */
         .timeline-marker {
           position: absolute;
-          width: 20px;
-          height: 20px;
+          width: 14px;
+          height: 14px;
           border-radius: 50%;
           background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
-          border: 3px solid #4b5563;
+          border: 2px solid #4b5563;
           transform: translate(-50%, -50%);
           opacity: 0.7;
           transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
           box-shadow: 
-              0 4px 15px rgba(0, 0, 0, 0.3),
+              0 3px 10px rgba(0, 0, 0, 0.3),
               inset 0 1px 2px rgba(255, 255, 255, 0.1);
         }
 
         .timeline-marker.active {
           background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
-          border: 4px solid #c084fc;
+          border: 3px solid #c084fc;
           opacity: 1;
-          transform: translate(-50%, -50%) scale(1.6);
+          transform: translate(-50%, -50%) scale(1.4);
           box-shadow: 
-              0 0 40px rgba(139, 92, 246, 1),
-              0 0 80px rgba(139, 92, 246, 0.6),
-              0 0 120px rgba(139, 92, 246, 0.3),
+              0 0 30px rgba(139, 92, 246, 1),
+              0 0 60px rgba(139, 92, 246, 0.6),
+              0 0 90px rgba(139, 92, 246, 0.3),
               inset 0 2px 4px rgba(255, 255, 255, 0.4);
           animation: superPulse 1.5s ease-in-out infinite;
           z-index: 10;
@@ -518,11 +555,11 @@ const TimelineWheel = () => {
 
         .timeline-marker.completed {
           background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-          border: 3px solid #34d399;
+          border: 2px solid #34d399;
           opacity: 1;
           transform: translate(-50%, -50%) scale(1.1);
           box-shadow: 
-              0 0 20px rgba(16, 185, 129, 0.6),
+              0 0 15px rgba(16, 185, 129, 0.6),
               inset 0 1px 2px rgba(255, 255, 255, 0.2);
         }
 
@@ -546,16 +583,16 @@ const TimelineWheel = () => {
         }
 
         /* Position markers along the right arc of the semi-circle */
-        .marker-2015 { top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(0deg) translateY(-290px); }
-        .marker-2016 { top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(20deg) translateY(-290px); }
-        .marker-2017 { top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(40deg) translateY(-290px); }
-        .marker-2018 { top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(60deg) translateY(-290px); }
-        .marker-2019 { top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(80deg) translateY(-290px); }
-        .marker-2020 { top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(100deg) translateY(-290px); }
-        .marker-2021 { top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(120deg) translateY(-290px); }
-        .marker-2022 { top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(140deg) translateY(-290px); }
-        .marker-2023 { top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(160deg) translateY(-290px); }
-        .marker-2024 { top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(180deg) translateY(-290px); }
+        .marker-2015 { top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(0deg) translateY(-180px); }
+        .marker-2016 { top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(20deg) translateY(-180px); }
+        .marker-2017 { top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(40deg) translateY(-180px); }
+        .marker-2018 { top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(60deg) translateY(-180px); }
+        .marker-2019 { top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(80deg) translateY(-180px); }
+        .marker-2020 { top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(100deg) translateY(-180px); }
+        .marker-2021 { top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(120deg) translateY(-180px); }
+        .marker-2022 { top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(140deg) translateY(-180px); }
+        .marker-2023 { top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(160deg) translateY(-180px); }
+        .marker-2024 { top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(180deg) translateY(-180px); }
 
         /* Right side - Content area */
         .content-area {
@@ -568,6 +605,15 @@ const TimelineWheel = () => {
           padding-right: 20px;
           position: relative;
           z-index: 10; /* Lower z-index to appear behind the wheel */
+        }
+
+        @media (max-width: 768px) {
+          .content-area {
+            width: 100vw;
+            height: 50vh;
+            padding: 10px;
+            justify-content: center;
+          }
         }
 
         .content-panel {
@@ -584,6 +630,15 @@ const TimelineWheel = () => {
           left: 0;
           pointer-events: none;
           z-index: 5; /* Even lower z-index for content panels */
+        }
+
+        @media (max-width: 768px) {
+          .content-panel {
+            flex-direction: column;
+            gap: 20px;
+            max-width: 100%;
+            text-align: center;
+          }
         }
 
         .content-panel.active {
@@ -605,6 +660,23 @@ const TimelineWheel = () => {
           box-shadow: 0 12px 35px rgba(139, 92, 246, 0.2);
           border: 1px solid rgba(139, 92, 246, 0.1);
           backdrop-filter: blur(10px); /* Add blur effect for behind effect */
+        }
+
+        @media (max-width: 768px) {
+          .content-image {
+            flex: 0 0 200px;
+            height: 200px;
+            width: 200px;
+            margin: 0 auto;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .content-image {
+            flex: 0 0 150px;
+            height: 150px;
+            width: 150px;
+          }
         }
 
         .content-image img {
@@ -664,13 +736,27 @@ const TimelineWheel = () => {
           opacity: 0.9; /* Slightly dimmed for behind effect */
         }
 
+        @media (max-width: 768px) {
+          .content-description {
+            font-size: 16px;
+            line-height: 1.6;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .content-description {
+            font-size: 14px;
+            line-height: 1.5;
+          }
+        }
+
         /* Year display */
         .year-display {
           position: absolute;
           top: 50%;
-          right: -100px;
+          right: -60px;
           transform: translateY(-50%);
-          font-size: 48px;
+          font-size: 36px;
           font-weight: 900;
           color: #9ca3af;
           opacity: 0;
@@ -678,6 +764,20 @@ const TimelineWheel = () => {
           transform-origin: center center;
           z-index: 5;
           white-space: nowrap;
+        }
+
+        @media (max-width: 768px) {
+          .year-display {
+            right: -45px;
+            font-size: 28px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .year-display {
+            right: -35px;
+            font-size: 24px;
+          }
         }
 
         .year-display.active {

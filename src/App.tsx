@@ -1,16 +1,17 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "@/components/ui/feedback/toaster";
+import { Toaster as Sonner } from "@/components/ui/feedback/sonner";
+import { TooltipProvider } from "@/components/ui/overlay/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import TechjaysOverview from "./pages/TechjaysOverview";
-import InvestmentPortfolio from "./pages/InvestmentPortfolio";
-import MediaMentions from "./pages/MediaMentions";
-import Contact from "./pages/Contact";
-import NotFound from "./pages/NotFound";
-import GrowWithMe from "./pages/GrowWithMe";
-import KnowAboutMe from "./pages/KnowAboutMe";
+import Index from "./pages/home/Index";
+import TechjaysOverview from "./pages/business/TechjaysOverview";
+import InvestmentPortfolio from "./pages/business/InvestmentPortfolio";
+import MediaMentions from "./pages/media/MediaMentions";
+import Contact from "./pages/contact/Contact";
+import NotFound from "./pages/system/NotFound";
+import GrowWithMe from "./pages/about/GrowWithMe";
+import KnowAboutMe from "./pages/about/KnowAboutMe";
+import KnowAboutMeNew from "./pages/about/KnowAboutMeNew";
 
 const queryClient = new QueryClient();
 
@@ -27,7 +28,7 @@ const App = () => (
           <Route path="/media-mentions" element={<MediaMentions />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/grow-with-me" element={<GrowWithMe />} />
-          <Route path="/know-about-me" element={<KnowAboutMe />} />
+          <Route path="/know-about-me" element={<KnowAboutMeNew />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

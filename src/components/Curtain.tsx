@@ -7,7 +7,6 @@ interface CurtainProps {
 }
 
 const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
-  const [showText, setShowText] = useState(false);
   const [animationPhase, setAnimationPhase] = useState<'hidden' | 'sliding-down' | 'visible' | 'sliding-up'>('hidden');
   const [shouldRender, setShouldRender] = useState(false);
   const timersRef = useRef<NodeJS.Timeout[]>([]);
@@ -21,7 +20,6 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
     if (isVisible) {
       if (isFirstRender.current) {
       setShouldRender(true);
-      setShowText(false);
       setAnimationPhase('hidden');
         isFirstRender.current = false;
         const initialTimer = setTimeout(() => {
@@ -31,20 +29,17 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
         timersRef.current.push(initialTimer);
       } else {
         setShouldRender(true);
-        setShowText(false);
         setAnimationPhase('sliding-down');
         console.log('[Curtain] Animation phase: sliding-down');
       }
 
       const showTextTimer = setTimeout(() => {
         setAnimationPhase('visible');
-        setShowText(true);
         console.log('[Curtain] Animation phase: visible, showText: true');
       }, 500); // Reduced from 1000ms to 500ms
       timersRef.current.push(showTextTimer);
 
       const slideUpTimer = setTimeout(() => {
-        setShowText(false);
         setAnimationPhase('sliding-up');
         console.log('[Curtain] Animation phase: sliding-up, showText: false');
       }, 1200); // Reduced from 2500ms to 1200ms
@@ -64,15 +59,15 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
       };
     } else {
       setShouldRender(false);
-      setShowText(false);
       setAnimationPhase('hidden');
       console.log('[Curtain] Reset to hidden');
     }
   }, [isVisible, onComplete]);
 
   useEffect(() => {
-    console.log('[Curtain] animationPhase:', animationPhase, 'shouldRender:', shouldRender, 'showText:', showText);
-  }, [animationPhase, shouldRender, showText]);
+   
+    console.log('[Curtain] animationPhase:', animationPhase, 'shouldRender:', shouldRender, );
+  }, [animationPhase, shouldRender]);
 
   if (!shouldRender) {
     return null;
@@ -91,7 +86,7 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
         return 'translateY(-100%)';
     }
   };
-
+  console.log('Curtain222222', sectionName);
   return (
     <div 
       className="fixed inset-0 z-[200] flex items-center justify-center"
@@ -115,7 +110,6 @@ const Curtain = ({ isVisible, sectionName, onComplete }: CurtainProps) => {
       <h1 
         className="text-white text-4xl md:text-6xl font-light tracking-wide"
         style={{
-          opacity: showText ? 1 : 0,
           transition: 'opacity 300ms ease-in-out',
           willChange: 'opacity'
         }}
